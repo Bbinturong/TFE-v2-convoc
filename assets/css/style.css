@@ -1,0 +1,355 @@
+html, body {
+
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	background-color: #FDFDFD;	
+}
+/* HACK */
+.clearfix:after {
+     visibility: hidden;
+     display: block;
+     font-size: 0;
+     content: " ";
+     clear: both;
+     height: 0;
+     }
+.clearfix { display: inline-block; }
+/* start commented backslash hack \*/
+* html .clearfix { height: 1%; }
+.clearfix { display: block; }
+/* close commented backslash hack */
+
+body {
+
+	font-family: 'roboto-light', sans-serif;
+	font-size: 16px;
+	position: relative;
+}
+
+/* FONT */
+@font-face{ 
+	font-family: 'montserrat';
+	src: url('../font/Montserrat-Regular.ttf') format('truetype');
+}
+@font-face{ 
+	font-family: 'montserrat-bold';
+	src: url('../font/Montserrat-Bold.ttf') format('truetype');
+}
+@font-face{ 
+	font-family: 'roboto-light';
+	src: url('../font/Roboto-Light.ttf') format('truetype');
+}
+@font-face{ 
+	font-family: 'roboto-regular';
+	src: url('../font/Roboto-Regular.ttf') format('truetype');
+}
+@font-face{ 
+	font-family: 'roboto-bold';
+	src: url('../font/Roboto-Black.ttf') format('truetype');
+}
+
+/* ----- */
+/* HEADER */
+
+header {
+
+	width: 100%;
+
+	padding: 10px 0;
+	position: fixed;
+	z-index: 999999;
+	background-color: #ed7062;
+	color: #fff;
+	top: 0;
+}
+
+header .unite-name {
+
+	font-family: 'montserrat';
+	text-align: right;
+	font-weight: normal;
+	font-size: 1em;
+	text-transform: uppercase;
+
+	margin: 0 20px 20px 20px;
+}
+
+header .header-icon {
+
+	height: 20px;
+	width: auto;
+}
+header .header-icon.settings {
+
+	position: absolute;
+	left: 10px;
+	top: 10px;
+}
+
+
+.top-calendar {
+
+	width:  auto;
+	padding: 0;
+	margin: 0;
+	list-style: none;
+
+	overflow: auto;
+	white-space:nowrap;
+	font-family: 'montserrat';
+	padding-bottom: 5px;
+}
+
+.top-calendar-title .month-title {
+
+	font-family: 'montserrat';
+	font-size: 1.77em;
+	text-transform: uppercase;
+
+	margin-left: 20px;
+	margin-bottom: 10px;
+	margin-top: 0;
+	display: inline-block;
+}.top-calendar-title .year-title {
+
+	font-family: 'montserrat';
+	font-size: 1em;
+	text-transform: uppercase;
+
+	margin-left: 10px;
+	margin-bottom: 10px;
+	display: inline-block;
+	opacity: .7;
+}
+
+.top-calendar li {
+
+	text-align: center;
+	width: 40px; 
+	display: inline-block;
+
+	white-space: nowrap;
+}
+.top-calendar .calendar-number {
+
+	font-size: 1.333em;
+	position: relative;
+}.top-calendar .calendar-label {
+
+	font-size: 0.563em;
+	opacity: .5;
+	margin: 0;
+}.top-calendar .today:after {
+
+	content: '';
+    width: 100%;
+    height: 5px;
+    background-color: #fff;
+    opacity: .7;
+    display: block;
+    position: absolute;
+    bottom: -5px;
+    z-index: 1111;
+    /* left: -10%; */
+    left: -25%;
+    /* margin-left: -25%; */
+    padding: 0 5px;
+    z-index: 111111111;
+}
+/* END HEADER */
+/* ----- */
+
+
+/* ----- */
+/* MAIN */
+
+main {
+
+	width: 100%;
+	color: #2b3e50;
+}
+
+
+/* ---- MAIN BLOC ---- */
+.event {
+
+	margin: 20px 0;
+}
+
+.day {
+
+	width: 100%;
+	
+	position: relative;
+	overflow: auto;
+
+	background-color: #fff;
+}
+
+/* SIDABAR WITH DATE */
+.day .sidebar {
+
+	width: 10%;
+	height: 100%;
+    padding: 20px 6% 20px 4%;
+
+	text-align: center;
+	float: left;
+	text-transform: uppercase;	
+	position: relative;
+	z-index: 10;
+}
+.day .sidebar .date {
+
+	font-size: 1em;
+	margin: 0;	
+    line-height: 1em;
+    font-family: 'roboto-light';
+}
+.day .sidebar .date.date-number {
+
+	font-size: 1.777em;
+	font-family: 'roboto-bold';
+}
+
+.day .section-color {
+
+	width: 6px;
+	height: 100%;
+	background-color: #2a6fdd;
+	margin: 0;
+
+	position: absolute;
+	left: calc(20% - 3px);
+	top: 0;
+	z-index: 111;
+}
+.day .sidebar {
+
+	color: white;
+	transition: .5s ease;
+}
+.day .section-color {
+
+	left: 0;
+	width: calc(20% + 3px);
+
+	margin-left: 0;
+	transition: .5s ease;
+	z-index: 0;
+}
+.day .section-color:before {
+
+	right: -20px;
+	transition: .5s ease;
+}
+
+.day .section-color:before {
+
+	content: '';
+	width: 36px;
+	height: 36px;
+	border-radius: 20px;
+
+	background-size: 30px 30px;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-color: #fff;
+	display: block;
+	margin: 0;
+
+	position: absolute;
+	right: -15px;
+	top: 50%;
+	margin-top: -18px;
+	z-index: 1111;
+	transition: .5s ease;
+}
+
+/* DIFFERENTER EVENT TYPE */
+.day.soiree .section-color:before {
+
+	background-image: url(../icon/bonfire.svg);
+}
+.day.camp .section-color:before {
+
+	background-image: url(../icon/tent.svg);
+}
+.day.reunion .section-color:before {
+
+	background-image: url(../icon/foulard.svg);
+}
+.day.nothing .section-color:before {
+
+	content: none;
+}
+
+.day .info {
+
+	width: calc(75% - 3px);
+	height: 100%;
+	padding-left: 5%;
+	margin-left: 3px;
+
+	float: left;
+	position: relative;
+}
+
+.day .info .day-title {
+
+	font-family: 'montserrat';
+	font-size: 1em;
+	margin: 5px 0 0 0;
+}
+.day .info .section-baseline {
+
+	font-family: 'roboto-light';
+	font-size: .75em;
+	margin: 0 0 15px 0;
+	opacity: .7;
+	text-transform: capitalize;
+}
+
+.day .info .info-baseline {
+
+	font-size: .75em;
+	margin: 0 0 5px 10px;
+	padding-left: 10px;
+	position: relative;
+	font-family: 'roboto-regular';
+}
+
+.info-baseline:before {
+
+	content: '';
+	width: 14px;
+	height: 100%;
+	background-repeat: no-repeat;
+	display: block;
+	margin: 0;
+
+	position: absolute;
+	left: -10px;
+	top: 0;
+}
+
+.info-hour .hour-end {
+
+	margin-left: 2px;
+}.info-hour .hour-end:before {
+
+	content: '- ';
+}
+
+.info-baseline.info-hour:before {
+
+	background-image: url('../icon/hour.svg');
+}.info-baseline.info-location:before {
+
+	background-image: url('../icon/location.svg');
+}
+
+/* END MAIN */
+/* ----- */
