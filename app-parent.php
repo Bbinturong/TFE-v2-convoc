@@ -1,3 +1,21 @@
+<?php 
+  
+  session_start();
+  require "db_connect.php";
+
+  $sql = 'SELECT count(*) FROM event WHERE unite_name = :unite_name';
+     $preparedStatement = $connexion->prepare($sql);
+     $preparedStatement->bindValue(':unite_name', 'admin');
+     $preparedStatement->execute();
+     $number_of_rows = $preparedStatement->fetchColumn(); 
+
+  $sql = 'SELECT * FROM event WHERE unite_name = :unite_name';
+     $preparedStatement = $connexion->prepare($sql);
+     $preparedStatement->bindValue(':unite_name', 'admin');
+     $preparedStatement->execute();
+     $event_info = $preparedStatement->fetch(); 
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -46,7 +64,7 @@
 
     <a href="param.php"><img class='header-icon settings' src="assets/icon/settings.svg" alt="icone de paramètres"></a>
 
-    <h1 class='unite-name'> Unité St lambert </h1>
+    <h1 class='unite-name'> <?= $_SESSION['unite_name']; ?> </h1>
 
     <div class='top-calendar-title'></div>
     <ul class='top-calendar'>
@@ -56,32 +74,42 @@
 <!-- END HEADER -->
 
 <!-- MAIN -->
-<main> 
+<main class='main'> 
 
-<section class='event day camp'>
+<?php 
+    if ($number_of_rows == 0) {
+        include 'no-data.php';
+    } else {
 
-    <div class='sidebar'>
-        <p class='date date-day'>samedi</p>
-        <p class='date date-number'>17</p>
-        <p class='date date-month'>septembre</p>
+        echo "
+        <section class='event day " . $event_info['event_type'] . "'>
+        <a href='" . $event_info['id'] . ".html''>
+        <div class='sidebar'>
+            <p class='date date-day'>sam</p>
+            <p class='date date-number'>17</p>    
+        </div>
 
-    
-    </div>
+        <span class='section-color " . $event_info['event_section'] . "'></span>
 
-    <span class='section-color'></span>
+        <div class='info'>
 
+            <h3 class='day-title'> " . $event_info['event_title'] . " </h3>
+            <p class='section-baseline'> " . $event_info['event_section'] . " </p>
 
-    <div class='info'>
+            <p class='info-baseline info-hour'>
+            <span class='hour-start'>" . $event_info['event_hour_start'] . "</span> 
+            <span class='hour-end'>" . $event_info['event_hour_end'] . "</span>
+            </p>
 
-        <h3 class='day-title'> Réunion normale </h3>
-        <p class='section-baseline'> éclaireurs </p>
+            <p class='info-baseline info-location'> " . $event_info['event_place'] . "</p>     
+        </div>   
 
-        <p class='info-baseline info-hour'><span class='hour-start'>14:00</span> <span class='hour-end'>17:00</span></p>
-        <p class='info-baseline info-location'> 17, Avenue reine Astrid 4040 Ottignies</p> 
-    
-    </div>   
+        </a>
+        </section>";
+    }
 
-</section>
+?>
+
 
 </main>
 <!-- END MAIN -->
@@ -99,6 +127,18 @@ $(".top-calendar li").click(function(){
         
         $( ".top-calendar" ).toggleClass("show-calendar");
 });
+
+$('.top-calendar li').click(function(){
+
+    $('.top-calendar li').not(this).each(function(){
+        $(this).removeClass('today');
+    });
+    $(this).addClass('today');
+
+    var index = $(this).index();
+
+    $('.month-title').html(cal_months_name[index]);
+})
 
 </script>
 </body>

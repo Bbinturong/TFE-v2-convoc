@@ -2,7 +2,7 @@
 <html>
 <head>
 
-    <title> Convoc </title>
+    <title> event </title>
     <meta charset="UTF-8" />
 
     <!-- META -->
@@ -42,44 +42,57 @@
 <body>
 
 <!-- HEADER -->
-<header id="header" class="">
+<header id="header" class="param-header">
 
-    <a href="param.php"><img class='header-icon settings' src="assets/icon/settings.svg" alt="icone de paramètres"></a>
-
-    <h1 class='unite-name'> Unité St lambert </h1>
-
-    <div class='top-calendar-title'></div>
-    <ul class='top-calendar'>
-    </ul>
     
+    <a href="#"><img class='header-icon settings' src="assets/icon/back.svg" alt="icone de paramètres"></a>
+
+    <h1 class='section-name'> paramètres </h1>
 </header>
 <!-- END HEADER -->
 
 <!-- MAIN -->
-<main> 
+<main class='param-main'> 
 
-<section class='event day camp'>
+<h2 class='form-title'>Afficher</h2>
+<section class='param-section'>
 
-    <div class='sidebar'>
-        <p class='date date-day'>samedi</p>
-        <p class='date date-number'>17</p>
-        <p class='date date-month'>septembre</p>
+<h3 class='param-section-title'> Sections </h3>
 
+<ul class='param-list'>
+    <li> <p> Louveteaux </p> </li>
+    <li> <p> Louveteaux </p> </li>
+    <li> <p> Louveteaux </p> </li>
+</ul>
     
-    </div>
 
-    <span class='section-color'></span>
+</section>
 
+<section class='param-section'>
 
-    <div class='info'>
+<h3 class='param-section-title'> Type d'activités </h3>
 
-        <h3 class='day-title'> Réunion normale </h3>
-        <p class='section-baseline'> éclaireurs </p>
-
-        <p class='info-baseline info-hour'><span class='hour-start'>14:00</span> <span class='hour-end'>17:00</span></p>
-        <p class='info-baseline info-location'> 17, Avenue reine Astrid 4040 Ottignies</p> 
+<ul class='param-list'>
+    <li> <p> Réunion </p> </li>
+    <li> <p> Soirée </p> </li>
+    <li> <p> Camp </p> </li>
+    <li> <p> Pas de réunion </p> </li>
+</ul>
     
-    </div>   
+
+</section>
+
+<h2 class='form-title'>Paramètres de l'application</h2>
+<section class='param-section'>
+
+<h3 class='param-section-title'> Notifications </h3>
+
+<ul class='param-list'>
+    <li> <p> Louveteaux </p> </li>
+    <li> <p> Louveteaux </p> </li>
+    <li> <p> Louveteaux </p> </li>
+</ul>
+    
 
 </section>
 
@@ -87,18 +100,7 @@
 <!-- END MAIN -->
 
 
-<script type="text/javascript">
-createCalendar();
-
-$(".top-calendar-title").click(function(){ 
-        
-        $( ".top-calendar" ).toggleClass("show-calendar");
-}); 
-
-$(".top-calendar li").click(function(){ 
-        
-        $( ".top-calendar" ).toggleClass("show-calendar");
-});
+<script type="text/javascript">  
 
 </script>
 </body>

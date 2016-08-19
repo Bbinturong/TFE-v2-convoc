@@ -2,7 +2,7 @@
 <html>
 <head>
 
-    <title> Convoc </title>
+    <title> Convoc - Connexion </title>
     <meta charset="UTF-8" />
 
     <!-- META -->
@@ -33,10 +33,11 @@
     <script type="text/javascript" src="assets/js/jquery-1.11.3.js"></script>   
 
     <!-- CSS -->
-    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/login-style.css">
 
-    <!-- JS -->
-    <script type="text/javascript" src="assets/js/top-calendar.js"></script>  
+    <!-- SELECT 2 -->
+    <link href="assets/css/select2.css" rel="stylesheet" />
+    <script src="assets/js/select2.min.js"></script>
 
 </head>
 <body>
@@ -44,13 +45,8 @@
 <!-- HEADER -->
 <header id="header" class="">
 
-    <a href="param.php"><img class='header-icon settings' src="assets/icon/settings.svg" alt="icone de paramètres"></a>
-
-    <h1 class='unite-name'> Unité St lambert </h1>
-
-    <div class='top-calendar-title'></div>
-    <ul class='top-calendar'>
-    </ul>
+<img class='header-logo' src="assets/img/logo-co.png" alt="logo-convoc">
+<h1 class='mdp-unite-name'> Admin </h1>
     
 </header>
 <!-- END HEADER -->
@@ -58,47 +54,36 @@
 <!-- MAIN -->
 <main> 
 
-<section class='event day camp'>
+<form class='mdp-form' method="post" action="">
 
-    <div class='sidebar'>
-        <p class='date date-day'>samedi</p>
-        <p class='date date-number'>17</p>
-        <p class='date date-month'>septembre</p>
+<p class='form-baseline'> Mot de passe </p>
+<input id='password' type="password" name="mdp" pattern="[0-9]*" inputmode="numeric">
 
-    
-    </div>
+    <input value="Continuer" class='form-btn' >  </input>
 
-    <span class='section-color'></span>
+</form>
 
-
-    <div class='info'>
-
-        <h3 class='day-title'> Réunion normale </h3>
-        <p class='section-baseline'> éclaireurs </p>
-
-        <p class='info-baseline info-hour'><span class='hour-start'>14:00</span> <span class='hour-end'>17:00</span></p>
-        <p class='info-baseline info-location'> 17, Avenue reine Astrid 4040 Ottignies</p> 
-    
-    </div>   
-
-</section>
 
 </main>
 <!-- END MAIN -->
 
+<footer>
+
+<a class='inscription-link' href="login.html"> retour </a>
+    
+</footer>
+
 
 <script type="text/javascript">
-createCalendar();
 
-$(".top-calendar-title").click(function(){ 
-        
-        $( ".top-calendar" ).toggleClass("show-calendar");
-}); 
-
-$(".top-calendar li").click(function(){ 
-        
-        $( ".top-calendar" ).toggleClass("show-calendar");
+$('#password').focusout(function() {
+    if ($(this).val().length === 0) { 
+        console.log('test');
+    } else {
+        $( ".form-btn" ).attr( "type", "submit" ).addClass('active');
+    }
 });
+
 
 </script>
 </body>

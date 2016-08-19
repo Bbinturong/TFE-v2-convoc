@@ -1,8 +1,20 @@
+<?php 
+  
+  session_start();
+  require "db_connect.php";
+
+  $sql = 'SELECT unite-name FROM connect';
+     $preparedStatement = $connexion->prepare($sql);
+     $preparedStatement->execute();
+     $ip_used = $preparedStatement->fetch();
+
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
 
-    <title> Convoc </title>
+    <title> Convoc - Connexion </title>
     <meta charset="UTF-8" />
 
     <!-- META -->
@@ -33,10 +45,11 @@
     <script type="text/javascript" src="assets/js/jquery-1.11.3.js"></script>   
 
     <!-- CSS -->
-    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/login-style.css">
 
-    <!-- JS -->
-    <script type="text/javascript" src="assets/js/top-calendar.js"></script>  
+    <!-- SELECT 2 -->
+    <link href="assets/css/select2.css" rel="stylesheet" />
+    <script src="assets/js/select2.min.js"></script>
 
 </head>
 <body>
@@ -44,61 +57,55 @@
 <!-- HEADER -->
 <header id="header" class="">
 
-    <a href="param.php"><img class='header-icon settings' src="assets/icon/settings.svg" alt="icone de paramètres"></a>
-
-    <h1 class='unite-name'> Unité St lambert </h1>
-
-    <div class='top-calendar-title'></div>
-    <ul class='top-calendar'>
-    </ul>
+<div class='logo-container'>
+<img class='img-logo' src="assets/img/logo-co.png" alt="logo-convoc">
+<h1 class='text-logo'>nvoc</h1>
+<div>
     
 </header>
 <!-- END HEADER -->
 
 <!-- MAIN -->
-<main> 
+<main  class='log-main'> 
 
-<section class='event day camp'>
+<form class='log-form' method="post" action="mdp.html">
 
-    <div class='sidebar'>
-        <p class='date date-day'>samedi</p>
-        <p class='date date-number'>17</p>
-        <p class='date date-month'>septembre</p>
+<p class='form-baseline'> Choisis ton unité </p>
+<select name="unite-name">
+<option> </option>
+</select>
 
-    
-    </div>
+    <input value="Continuer" class='form-btn'>  </input>
 
-    <span class='section-color'></span>
-
-
-    <div class='info'>
-
-        <h3 class='day-title'> Réunion normale </h3>
-        <p class='section-baseline'> éclaireurs </p>
-
-        <p class='info-baseline info-hour'><span class='hour-start'>14:00</span> <span class='hour-end'>17:00</span></p>
-        <p class='info-baseline info-location'> 17, Avenue reine Astrid 4040 Ottignies</p> 
-    
-    </div>   
-
-</section>
+</form>
 
 </main>
 <!-- END MAIN -->
 
+<footer>
+
+<a class='inscription-link' href="#"> Inscris ton unité</a>
+    
+</footer>
+
 
 <script type="text/javascript">
-createCalendar();
 
-$(".top-calendar-title").click(function(){ 
-        
-        $( ".top-calendar" ).toggleClass("show-calendar");
-}); 
+$(document).ready(function(){
 
-$(".top-calendar li").click(function(){ 
-        
-        $( ".top-calendar" ).toggleClass("show-calendar");
+
+var data = [{ id: 0, text: 'enhancement' }, { id: 100, text: 'bug' }, { id: 2, text: 'duplicate' }, { id: 3, text: 'invalid' }, { id: 44, text: 'wontfix' } , { id: 100, text: 'bug' }, { id: 2, text: 'duplicate' }, { id: 3, text: 'invalid' }, { id: 44, text: 'wontfix' }];
+
+  $('select').select2({
+    data: data
 });
+
+  $( "select option:selected" ).each(function() {
+      if($(this).is(':selected')){$( ".form-btn" ).attr( "type", "submit" ).addClass('active');}
+    });
+
+    });
+    // DOCUMENT READY END 
 
 </script>
 </body>

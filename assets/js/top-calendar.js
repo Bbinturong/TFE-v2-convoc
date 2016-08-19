@@ -1,14 +1,17 @@
 
-
 function createCalendar(){
 
   // these are labels for the days of the week
 cal_days_labels = ['Lu', 'Ma', 'Me', 'Je', 'Ve', 'Sa', 'Di', 'Lu', 'Ma', 'Me', 'Je', 'Ve', 'Sa', 'Di', 'Lu', 'Ma', 'Me', 'Je', 'Ve', 'Sa', 'Di', 'Lu', 'Ma', 'Me', 'Je', 'Ve', 'Sa', 'Di', 'Lu', 'Ma', 'Me', 'Je', 'Ve', 'Sa', 'Di'  ];
 
 // these are human-readable month name labels, in order
-cal_months_labels = ['Janvier', 'Février', 'Mars', 'Avril',
+cal_months_name = ['Janvier', 'Février', 'Mars', 'Avril',
                      'Mai', 'Juin', 'Juillet', 'Août', 'Septembre',
                      'Octobre', 'Novembre', 'Décembre'];
+
+cal_months_labels = ['jan', 'fév', 'mar', 'avr',
+                     'Mai', 'jui', 'jui', 'Aoû', 'Sep',
+                     'Oct', 'Nov', 'Déc'];
 
 // these are the days of the week for each month, in order
 cal_days_in_month = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
@@ -18,7 +21,7 @@ cal_days_in_month = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
   /* GET MOTNH + MONTH NAME */
   this.month = current_date.getMonth();
-  var monthName = cal_months_labels[this.month]
+  var monthName = cal_months_name[this.month]
   this.year  = current_date.getFullYear();
 
   this.day = current_date.getDate();
@@ -42,6 +45,7 @@ cal_days_in_month = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
     var dayNumber = 1; 
 
     /* STARTING DAY - 1 BECAUSE IT START ON SUNDAY */
+    /*
   for (var i = startingDay; i < monthLength + startingDay; i++) {
 
     if (this.day == dayNumber) {
@@ -55,8 +59,23 @@ cal_days_in_month = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
     dayNumber++;
 
   }
+  */
 
   //$( ".top-calendar" ).width( monthLength * 40 );
+
+  for (var i = 0; i < 12; i++) {
+
+    if (this.month == i) {
+
+     $( ".top-calendar" ).append( "<li class='today'><a class='calendar-month-label'>"  + cal_months_labels[i] + "</a></li>");
+
+
+    } else { $( ".top-calendar" ).append( "<li><a class='calendar-month-label'>"  + cal_months_labels[i] + "</a></li>");
+}
+
+    dayNumber++;
+
+  }
    
 
 }
