@@ -15,22 +15,22 @@
     <meta property="og:title" content="Convoc"/>
     <meta property="og:description" content="Votre convocation en ligne"/>
     <meta property="og:email" content="bruno.mattelet@gmail.com"/>
-    <meta property="og:image" content="assets/img/convoc-og.jpg"/>
+    <meta property="og:image" content="../assets/img/convoc-og.jpg"/>
 
     <!-- ICON -->
-    <link rel="icon" type="image/png" href="assets/img/convoc-icon.png" />
+    <link rel="icon" type="image/png" href="../assets/img/convoc-icon.png" />
 
     <!-- MOBILE ICON -->
-    <link href="assets/img/convoc-mobile.jpg" rel="apple-touch-icon" />
-    <link href="assets/img/convoc-mobile.jpg" rel="apple-touch-icon" sizes="76x76" />
-    <link href="assets/img/convoc-mobile.jpg" rel="apple-touch-icon" sizes="120x120" />
-    <link href="assets/img/convoc-mobile.jpg" rel="apple-touch-icon" sizes="152x152" />
-    <link href="assets/img/convoc-mobile.jpg" rel="apple-touch-icon" sizes="180x180" />
-    <link href="assets/img/convoc-mobile.jpg" rel="icon" sizes="192x192" />
-    <link href="assets/img/convoc-mobile.jpg" rel="icon" sizes="128x128" />
+    <link href="../assets/img/convoc-mobile.jpg" rel="apple-touch-icon" />
+    <link href="../assets/img/convoc-mobile.jpg" rel="apple-touch-icon" sizes="76x76" />
+    <link href="../assets/img/convoc-mobile.jpg" rel="apple-touch-icon" sizes="120x120" />
+    <link href="../assets/img/convoc-mobile.jpg" rel="apple-touch-icon" sizes="152x152" />
+    <link href="../assets/img/convoc-mobile.jpg" rel="apple-touch-icon" sizes="180x180" />
+    <link href="../assets/img/convoc-mobile.jpg" rel="icon" sizes="192x192" />
+    <link href="../assets/img/convoc-mobile.jpg" rel="icon" sizes="128x128" />
 
     <!-- JQUERY -->
-    <script type="text/javascript" src="assets/js/jquery-1.11.3.js"></script>  
+    <script type="text/javascript" src="../assets/js/jquery-1.11.3.js"></script>  
 
     <!-- JQUERY UI -->
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
@@ -39,7 +39,7 @@
   <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
 
     <!-- CSS -->
-    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/style.css">
 
 
 </head>
@@ -49,7 +49,7 @@
 <header id="header" class="param-header">
 
     
-    <a href="#"><img class='header-icon settings' src="assets/icon/back.svg" alt="icone de paramètres"></a>
+    <a href="#"><img class='header-icon settings' src="../assets/icon/back.svg" alt="icone de paramètres"></a>
 
     <h1 class='section-name'> Créer un événement </h1>
 </header>
@@ -69,19 +69,19 @@
 <ul class='event_type-list clearfix'>
     <li>
         <input checked="true" id='reunion' name="event_type" type="radio" value='reunion'> 
-        <label for="reunion"><img src="assets/icon/foulard.svg" alt=""> <p>Réunion</p></label>
+        <label for="reunion"><img src="../assets/icon/foulard.svg" alt=""> <p>Réunion</p></label>
     </li>
     <li>
         <input id='soiree' name="event_type" type="radio" value='soirée'> 
-        <label for="soiree"><img src="assets/icon/bonfire.svg" alt=""><p>Soirée</p></label>
+        <label for="soiree"><img src="../assets/icon/bonfire.svg" alt=""><p>Soirée</p></label>
     </li>
     <li>
         <input id='camp' name="event_type" type="radio" value='camp'>  
-        <label for="camp"><img src="assets/icon/tent.svg" alt=""><p>Camp</p></label>
+        <label for="camp"><img src="../assets/icon/tent.svg" alt=""><p>Camp</p></label>
     </li>
     <li>
         <input id='nothing' name="event_type" type="radio" value='nothing'> 
-        <label for="nothing"><img src="assets/icon/nothing.svg" alt=""><p>Pas de réunion</p></label>
+        <label for="nothing"><img src="../assets/icon/nothing.svg" alt=""><p>Pas de réunion</p></label>
     </li>
 
 </ul>

@@ -1,8 +1,28 @@
+<?php 
+  
+  session_start();
+  require "db_connect.php";
+
+  $sql = 'SELECT unite-name FROM connect';
+     $preparedStatement = $connexion->prepare($sql);
+     $preparedStatement->execute();
+     $ip_used = $preparedStatement->fetch();
+
+
+
+  $_SESSION['unite_name'] = $_POST['unite_name'];
+
+  if (!empty($_SESSION['unite_name'])) {
+    header('location:mdp.php');
+  }
+
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
 
-    <title> event </title>
+    <title> Convoc - Connexion </title>
     <meta charset="UTF-8" />
 
     <!-- META -->
@@ -35,72 +55,65 @@
     <!-- CSS -->
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
 
-    <!-- JS -->
-    <script type="text/javascript" src="assets/js/top-calendar.js"></script>  
+    <!-- SELECT 2 -->
+    <link href="assets/css/select2.css" rel="stylesheet" />
+    <script src="assets/js/select2.min.js"></script>
 
 </head>
 <body>
 
 <!-- HEADER -->
-<header id="header" class="param-header">
+<header id="header" class="logo-header">
 
+<div class='logo-container'>
+<img class='img-logo' src="assets/img/logo-co.png" alt="logo-convoc">
+<h1 class='text-logo'>nvoc</h1>
+<div>
     
-    <a href="#"><img class='header-icon settings' src="assets/icon/back.svg" alt="icone de paramètres"></a>
-
-    <h1 class='section-name'> paramètres </h1>
 </header>
 <!-- END HEADER -->
 
 <!-- MAIN -->
-<main class='param-main'> 
+<main  class='log-main'> 
 
-<h2 class='form-title'>Afficher</h2>
-<section class='param-section'>
+<form class='log-form' method="post" action="">
 
-<h3 class='param-section-title'> Sections </h3>
+<p class='form-baseline'> Choisis ton unité </p>
+<select name="unite_name">
+<option> </option>
+</select>
 
-<ul class='param-list'>
-    <li> <p> Louveteaux </p> </li>
-    <li> <p> Louveteaux </p> </li>
-    <li> <p> Louveteaux </p> </li>
-</ul>
-    
+    <input value="Continuer" class='form-btn'>  </input>
 
-</section>
-
-<section class='param-section'>
-
-<h3 class='param-section-title'> Type d'activités </h3>
-
-<ul class='param-list'>
-    <li> <p> Réunion </p> </li>
-    <li> <p> Soirée </p> </li>
-    <li> <p> Camp </p> </li>
-    <li> <p> Pas de réunion </p> </li>
-</ul>
-    
-
-</section>
-
-<h2 class='form-title'>Paramètres de l'application</h2>
-<section class='param-section'>
-
-<h3 class='param-section-title'> Notifications </h3>
-
-<ul class='param-list'>
-    <li> <p> Louveteaux </p> </li>
-    <li> <p> Louveteaux </p> </li>
-    <li> <p> Louveteaux </p> </li>
-</ul>
-    
-
-</section>
+</form>
 
 </main>
 <!-- END MAIN -->
 
+<footer class='log-footer'>
 
-<script type="text/javascript">  
+<a class='inscription-link' href="#"> Inscris ton unité</a>
+    
+</footer>
+
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+
+
+var data = [{ id: 'admin', text: 'Unité St Admin' }];
+
+  $('select').select2({
+    data: data
+});
+
+  $( "select option" ).each(function() {
+      if($(this).is(':selected')){$( ".form-btn" ).attr( "type", "submit" ).addClass('active');}
+    });
+
+    });
+    // DOCUMENT READY END 
 
 </script>
 </body>

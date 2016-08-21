@@ -32,6 +32,10 @@ body {
 
 /* FONT */
 @font-face{ 
+	font-family: 'varela';
+	src: url('../font/VarelaRound-Regular.ttf') format('truetype');
+}
+@font-face{ 
 	font-family: 'montserrat';
 	src: url('../font/Montserrat-Regular.ttf') format('truetype');
 }
@@ -130,13 +134,13 @@ header {
 	padding: 10px 0 10px 0;
 	position: fixed;
 	z-index: 999999;
-	background-color: #ed7062;
 	color: #fff;
 	top: 0;
 }
 .main-header {
 
 	padding-bottom: 0;
+	background-color: #ed7062;
 }
 
 header .unite-name {
@@ -1281,6 +1285,7 @@ legend {
 .logo-header {
 
 	padding: 100px 0 50px 0;
+	position: relative;
 }
 
 .logo-container {
@@ -1338,8 +1343,6 @@ legend {
 
 	-webkit-animation: text-in 1s 3s ease forwards;
 }
-
-
 @-webkit-keyframes text-in {
 
 	0%   {opacity: 0; left: 0;}
@@ -1347,78 +1350,6 @@ legend {
     100%   {opacity: 1; left: 74px; z-index: 100;}
 }
 
-/*
-
-.img-logo {
-
-	width: 200px;
-	height: auto;
-	display: block;
-	margin: 0 auto;
-
-	-webkit-animation: logo-in 3s .2s ease forwards;
-
-	top: 13%;
-	left: 50%;
-	margin-left: -100px;
-
-
-	position: absolute;
-    z-index: 10;
-    -webkit-transform: scale(.2);
-}
-.header-logo {
-
-	width: 100px;
-	height: auto;
-	display: block;
-	margin: 0 auto 20px auto;
-	padding-top: 20px;
-}
-.mdp-unite-name {
-
-	text-align: center;
-	color: #ed7062;
-	font-family: 'montserrat';
-	text-transform: uppercase;
-	font-size: .75em;
-}
-
-@-webkit-keyframes logo-in {
-
-	0%   {opacity: 0; -webkit-transform: scale(.2);}
-    60% {opacity: 1; -webkit-transform: scale(1); left: 50%;}
-    80% {opacity: 1; -webkit-transform: scale(1); left: 50%;}
-    100% {left: 90px; -webkit-transform: scale(.5);}
-}
-
-.text-logo {
-
-	font-family: 'varela';
-
-    top: 15%;
-    left: 64%;
-    margin: 0;
-    margin-left: -100px;
-    position: absolute;
-    font-size: 70px;
-    letter-spacing: -5px;
-    color: #2b3e50;
-    font-weight: 300;
-    opacity: 0;
-    z-index: 1;
-
-	-webkit-animation: text-in 1s 3s ease forwards;
-}
-
-@-webkit-keyframes text-in {
-
-	0%   {opacity: 0; left: 0;}
-    90%   {z-index: 10;}
-    100%   {opacity: 1; left: 224px; z-index: 100;}
-}
-*/
-
 
 .header-logo {
 
@@ -1428,15 +1359,6 @@ legend {
 	margin: 0 auto 20px auto;
 	padding-top: 20px;
 }
-.mdp-unite-name {
-
-	text-align: center;
-	color: #ed7062;
-	font-family: 'montserrat';
-	text-transform: uppercase;
-	font-size: .75em;
-}
-
 
 
 .log-main {
@@ -1457,11 +1379,7 @@ legend {
 
 	width: 100%;
 }
-.mdp-form {
 
-	width: 100%;
-	margin-top: 100px;
-}
 
 .log-form select {
 
@@ -1471,6 +1389,26 @@ legend {
 	border-bottom: 2px solid #2b3e50;
 }
 
+.mdp-header {
+	position: relative;
+}
+.mdp-main {
+	width: 80%;
+	margin: 0 auto;
+}
+.mdp-unite-name {
+
+	text-align: center;
+	color: #ed7062;
+	font-family: 'montserrat';
+	text-transform: uppercase;
+	font-size: .75em;
+}
+.mdp-form {
+
+	width: 100%;
+	margin-top: 80px;
+}
 .mdp-form input[type=password] {
 
 	width: 100%;
@@ -1479,6 +1417,7 @@ legend {
 	border: none;
 	outline: none;
 	border-bottom: 2px solid #2b3e50;
+	margin: 0;
 }
 .mdp-form input[type=password]:focus {
 
@@ -1530,13 +1469,6 @@ legend {
 	color: #fff;
 	background-color: #ed7062;
 }
-
-footer {
-
-	position: absolute;
-	bottom: 10px;
-	left: 10px;
-}
 .inscription-link {
 
 	text-align: left;
@@ -1545,6 +1477,7 @@ footer {
 	text-transform: uppercase;
 	text-decoration: none;
 	font-size: .75em;
+	margin: 20px;
 }
 
 .alert {
@@ -1577,4 +1510,11 @@ footer {
     top: -40px !important;
     opacity: 1 !important;
     transition: all .2s;
+}
+
+.log-footer {
+
+	position: fixed;
+	bottom: 0;
+	margin-bottom: 10px;
 }

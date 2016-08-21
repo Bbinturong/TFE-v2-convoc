@@ -1,25 +1,38 @@
 <?php   
 
-    require "db_connect.php";
-
-    $sql = 'UPDATE email SET valid = true WHERE personal_id = :id';
-    $preparedStatement = $connexion->prepare($sql);
-    $preparedStatement->bindValue(':id', $_GET["id"]);
-    $preparedStatement->execute();
+    session_start();
+    require "../db_connect.php";
 
 
-    $sql = 'SELECT * FROM email WHERE personal_id = :id';
-    $preparedStatement = $connexion->prepare($sql);
-    $preparedStatement->bindValue(':id',  $_GET["id"]);
-    $preparedStatement->execute();
-    $email_used = $preparedStatement->fetch();
+    $sql = 'SELECT * FROM event WHERE id = :id';
+     $preparedStatement = $connexion->prepare($sql);
+     $preparedStatement->bindValue(':id',  $_GET["id"]);
+     $preparedStatement->execute();
+     $event_id = $preparedStatement->fetch();
 
-    $date = date('Y-m-d H:i:s');
-    if ($email_used['heure'] ) {
-        # code...
-     }
+     $_SESSION['event_id'] = $event_id['id'];
 
-    echo "<h2> Vous avez bien valider votre email, Merci ! </h2>";
+    $sql = 'SELECT * FROM section WHERE section_name = :section_name AND unite_name = :unite_name';
+     $preparedStatement = $connexion->prepare($sql);
+     $preparedStatement->bindValue(':section_name',  $event_id['event_section']);
+     $preparedStatement->bindValue(':unite_name', $event_id['unite_name']);
+     $preparedStatement->execute();
+     $section_info = $preparedStatement->fetch();
+
+
+    $sql = 'SELECT * FROM animateur WHERE anim_section = :section_name AND unite_name = :unite_name';
+     $preparedStatement = $connexion->prepare($sql);
+     $preparedStatement->bindValue(':section_name',  $event_id['event_section']);
+     $preparedStatement->bindValue(':unite_name', $event_id['unite_name']);
+     $preparedStatement->execute();
+     $anim_info = $preparedStatement->fetchAll(PDO::FETCH_ASSOC);
+
+    $sql = 'SELECT * FROM item WHERE event_id = :event_id';
+     $preparedStatement = $connexion->prepare($sql);
+     $preparedStatement->bindValue(':event_id',  $event_id['id']);
+     $preparedStatement->execute();
+     $item_list = $preparedStatement->fetchAll(PDO::FETCH_ASSOC);   
+    
 
 ?>
 
@@ -40,40 +53,42 @@
     <meta property="og:title" content="Convoc"/>
     <meta property="og:description" content="Votre convocation en ligne"/>
     <meta property="og:email" content="bruno.mattelet@gmail.com"/>
-    <meta property="og:image" content="assets/img/convoc-og.jpg"/>
+    <meta property="og:image" content="../assets/img/convoc-og.jpg"/>
 
     <!-- ICON -->
-    <link rel="icon" type="image/png" href="assets/img/convoc-icon.png" />
+    <link rel="icon" type="image/png" href="../assets/img/convoc-icon.png" />
 
     <!-- MOBILE ICON -->
-    <link href="assets/img/convoc-mobile.jpg" rel="apple-touch-icon" />
-    <link href="assets/img/convoc-mobile.jpg" rel="apple-touch-icon" sizes="76x76" />
-    <link href="assets/img/convoc-mobile.jpg" rel="apple-touch-icon" sizes="120x120" />
-    <link href="assets/img/convoc-mobile.jpg" rel="apple-touch-icon" sizes="152x152" />
-    <link href="assets/img/convoc-mobile.jpg" rel="apple-touch-icon" sizes="180x180" />
-    <link href="assets/img/convoc-mobile.jpg" rel="icon" sizes="192x192" />
-    <link href="assets/img/convoc-mobile.jpg" rel="icon" sizes="128x128" />
+    <link href="../assets/img/convoc-mobile.jpg" rel="apple-touch-icon" />
+    <link href="../assets/img/convoc-mobile.jpg" rel="apple-touch-icon" sizes="76x76" />
+    <link href="../assets/img/convoc-mobile.jpg" rel="apple-touch-icon" sizes="120x120" />
+    <link href="../assets/img/convoc-mobile.jpg" rel="apple-touch-icon" sizes="152x152" />
+    <link href="../assets/img/convoc-mobile.jpg" rel="apple-touch-icon" sizes="180x180" />
+    <link href="../assets/img/convoc-mobile.jpg" rel="icon" sizes="192x192" />
+    <link href="../assets/img/convoc-mobile.jpg" rel="icon" sizes="128x128" />
 
     <!-- JQUERY -->
-    <script type="text/javascript" src="assets/js/jquery-1.11.3.js"></script>   
+    <script type="text/javascript" src="../assets/js/jquery-1.11.3.js"></script>   
 
     <!-- CSS -->
-    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/style.css">
 
     <!-- JS -->
-    <script type="text/javascript" src="assets/js/top-calendar.js"></script>  
+    <script type="text/javascript" src="../assets/js/top-calendar.js"></script>  
 
 </head>
 <body>
 
 <!-- HEADER -->
-<header id="header" class="event-header">
+<header id="header" class="event-header <?= $section_info['section_color'].'-bg'; ?>">
 
-    <img class='header-icon settings' src="assets/icon/back.svg" alt="icone de paramètres">
+    <a href="app.php">
+    <img class='header-icon settings' src="../assets/icon/back.svg" alt="icone de paramètres">
+    </a>
 
-    <h1 class='section-name'> éclaireurs </h1>
+    <h1 class='section-name'> <?= $event_id['event_section']; ?> </h1>
 
-    <div class='top-calendar-title'><h2 class='month-title'>17 Novembre</h2><h3 class='year-title'>2016</h3></div>
+    <div class='top-calendar-title'><h2 class='day-title'> Samedi <span class='day-title-number'> 17 </span> </h2><h3 class='month-title'>Novembre <span class='year-title'> 2016</span></h3></div>
     <!--ul class='top-calendar'>
     </ul-->
     
@@ -85,25 +100,27 @@
 
 <div class='modal'>
 
-<h2> C'est dommage !</h2>
+<h2 class='modal-title'> C'est dommage !</h2>
 
-<form action="event_submit" method="get" accept-charset="utf-8">
-    event_submit
-    get
+<form class='modal-form' action="absent.php" method="post" accept-charset="utf-8">
+   
+    <p class='form-baseline'> Qui ne participeras pas ?</p>
+    <input class='' type="text" name="event_absent">
+    <input type='submit' value="Prévenir" class='form-btn active' > 
+    <p class='annuler'>Annuler</p>
 </form>
     
 
 </div>
 
-
 <!-- END MODAL -->
 
 <!-- MAIN -->
-<main> 
+<main class='event-main'> 
 
 <nav class='event-menu'>
     <ul class='clearfix'>
-        <li class='nav-btn btn-info selected'><a> <svg version="1.1" x="0px" y="0px"
+        <li class='nav-btn btn-info selected'><a  class=<?= $section_info['section_color'].'-nav'; ?>> <svg version="1.1" x="0px" y="0px"
      viewBox="0 0 464 464" enable-background=new 0 0 464 464">
 <g>
     <path d="M240,80.179v-0.984c18.235-3.717,32-19.878,32-39.195c0-22.056-17.944-40-40-40c-22.056,0-40,17.944-40,40
@@ -163,7 +180,7 @@
         l37.521-19.204l-19.204,37.522C266.01,250.488,263.449,246.881,260.284,243.716z"/>
 </g></svg><p>infos</p></a></li>
 
-        <li class='nav-btn btn-backpack'><a><?xml version="1.0" encoding="utf-8"?>
+        <li class='nav-btn btn-backpack'><a class=<?= $section_info['section_color'].'-nav'; ?>>
 <svg version="1.1" x="0px" y="0px"
      viewBox="0 0 100 100" enable-background="new 0 0 100 100">
 <g>
@@ -189,7 +206,7 @@
 </g>
 </svg>
  <p>sac à dos</p></a></li>
-        <li class='nav-btn btn-contact'><a><svg version="1.1" viewBox="0 0 464 464" enable-background="new 0 0 464 464">
+        <li class='nav-btn btn-contact'><a class=<?= $section_info['section_color'].'-nav'; ?>><svg version="1.1" viewBox="0 0 464 464" enable-background="new 0 0 464 464">
 <g>
     <path d="M316,160V24c0-13.233-10.767-24-24-24s-24,10.767-24,24v136H148c-17.645,0-32,14.355-32,32v240c0,17.645,14.355,32,32,32
         h168c17.645,0,32-14.355,32-32V192C348,174.355,333.645,160,316,160z M284,24c0-4.411,3.589-8,8-8s8,3.589,8,8v136h-16V24z
@@ -210,41 +227,45 @@
 
 <section class='event-main-info'>
 
-        <h2 class='event-title'> Réunion normale </h2>
-        <p class='info-baseline info-hour'><span class='hour-start'>14:00</span> <span class='hour-end'>17:00</span></p>
-        <p class='info-baseline info-location'> Local</p>  
+        <h2 class='event-title'> <?= $event_id['event_title']; ?> </h2>
+        <p class='info-baseline info-hour'><span class='hour-start'><?= $event_id['event_hour_start']; ?></span> <span class='hour-end'><?= $event_id['event_hour_end']; ?></span></p>
+        <p class='info-baseline info-location'> <?= $event_id['event_place']; ?></p>  
 
 </section>
 
 <section class='event-info info visible'>
 
-<h3> infos </h3>
+<h3 class='event-info-title'> infos </h3>
 
-<p> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-<p>
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+<p><?= $event_id['event_description']; ?></p>
     
 </section>
 
 <section class='event-info backpack'>
 
-<h3> Sac à dos </h3>
+<h3 class='event-info-title'> Sac à dos </h3>
 
 <fieldset class="item-list"> 
   <ul> 
-    <li><label for="del1"></label><input type="checkbox" name="delivery" id="del1" value="in" /> <div class="check"></div> <p class='fake-label'>Test</p></li> 
-    <li><label for="del11"></label><input type="checkbox" name="delivery" id="del11" value="in" /> <div class="check"></div> <p class='fake-label'>Test</p></li>
-     <li><label for="del111"></label><input type="checkbox" name="delivery" id="del111" value="in" /> <div class="check"></div> <p class='fake-label'>Test</p></li>
+  <?php 
+
+    if (empty($item_list)) {
+            
+        echo "Ne prépare rien, tes chefs s'en occupe.";
+    } else {
+    $i = 0;
+    foreach($item_list as $row) {
+
+        echo "
+
+        <li><label for='item" . $i ."'></label><input type='checkbox'  id='item" . $i ."' value='in' /> <div class='check'></div> <p class='fake-label'>" . $row['item_name'] ."</p></li> 
+
+        ";
+        $i++;
+        }
+    }
+
+?>
   </ul> 
 </fieldset> 
     
@@ -253,25 +274,34 @@ proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 
 <section class='event-info contact' >
 
-<h3> Contact </h3>
+<h3 class='event-info-title'> Contact </h3>
 
-    <section class='contact-user clearfix'>
-    <div class='contact-info'>
+<?php 
 
-        <p class='contact-info-name'> Pierre Manouche</p> 
-        <p class='contact-info-totem'> Castor </p> 
-        <p class='contact-info-poste'> Secretaire </p>        
+    foreach($anim_info as $row) {
 
-    </div> 
-    <div class='contact-number'>
-    <a class='contact-number-phone' href="tel:555-555-5555">0495/62.36.69</a>
-    <a class='contact-number-mail' href="tel:555-555-5555">pierre.manouche@lolo.be</a>
+        echo "
 
-        
-    </div>
+        <section class='contact-user clearfix'>
+
+            <div class='contact-info'>
+                <p class='contact-info-name'>" . $row['anim_name'] . "</p> 
+                <p class='contact-info-totem'> " . $row['anim_totem'] . " </p> 
+                <p class='contact-info-poste " . $section_info['section_color'].'-nav' . "'> " . $row['anim_poste'] . " </p> 
+            </div>
+
+            <div class='contact-number'>
+                <a class='contact-number-phone' href='tel:" . $row['anim_tel'] . "'>" . $row['anim_tel'] . "</a>
+                <a class='contact-number-mail' href='mailto:" . $row['anim_mail'] . "'>" . $row['anim_mail'] . "</a>
+            </div>
     </section>
 
-<a class='btn participate-btn' href=""> Je ne participerai pas</a>
+        ";
+        }
+
+?>
+
+<a class='btn participate-btn'> Je ne participerai pas</a>
     
 </section>
 
@@ -309,6 +339,26 @@ proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
         $('.event-info.info').addClass('visible');
     })
 
+
+
+    $('.participate-btn').click(function(){
+
+        $('header').css( "opacity", ".5" );
+        $('main').css( "opacity", ".5" );
+        $('.modal').addClass('pop-up');
+    })
+    $('.modal-form .active').click(function(){
+
+        $('header').css( "opacity", "1" );
+        $('main').css( "opacity", "1" );
+        $('.modal').removeClass('pop-up');
+    })
+    $('.modal-form .annuler').click(function(){
+
+        $('header').css( "opacity", "1" );
+        $('main').css( "opacity", "1" );
+        $('.modal').removeClass('pop-up');
+    })
 
 
 
